@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e9f5fc;
+        }
+
+        .result-container {
+            text-align: center;
+            background: linear-gradient(to right, #17e1e1, #fad0c4);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 3px solid #008000;
+        }
+
+        .result-container h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .result-container p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .result-container p.correct {
+            color: #28a745; /* Green for correct */
+            font-weight: bold;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: none; /* Initially hidden */
+            background: linear-gradient(to right, #36d1dc, #5b86e5);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to right, #5b86e5, #36d1dc);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .countdown {
+            font-size: 2em;
+            margin-top: 20px;
+            color: #ff6f61;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <h2>အသင့်ဖြေမှန်ကန်ပါသည်⭕</h2>
+        <p id="line1" class="correct">✅  1. 2 - Correct!</p>
+        <p id="line2" class="correct">✅ 2.  8 - Correct!</p>
+        <p id="line3" class="correct">✅ 3. tr.tint - Correct!</p>
+        <p id="line4" class="correct">✅ 4. afol - Correct!</p>
+        <p id="line5" class="correct">✅ 5. cherry - Correct!</p>
+
+        <!-- Button Container -->
+        <div class="btn-container">
+            <button class="btn" id="nextBtn" onclick="startCountdown()">Next</button>
+        </div>
+
+        <div id="countdownDisplay" class="countdown"></div>
+    </div>
+
+    <script>
+        // Display each line with a delay
+        function showResults() {
+            const lines = [
+                document.getElementById('line1'),
+                document.getElementById('line2'),
+                document.getElementById('line3'),
+                document.getElementById('line4'),
+                document.getElementById('line5')
+            ];
+
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.opacity = 1; // Make the line visible
+                    // If this is the last line, show the button
+                    if (index === lines.length - 1) {
+                        document.getElementById('nextBtn').style.display = "inline-block";
+                    }
+                }, index * 1000); // Delay by 1 second per line
+            });
+        }
+
+        // Start Countdown
+        function startCountdown() {
+            let countdown = 5;
+            const countdownDisplay = document.getElementById('countdownDisplay');
+            countdownDisplay.textContent = countdown;
+
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownDisplay.textContent = countdown;
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval); // Stop the countdown
+                    // Redirect after countdown finishes
+                    window.location.href = "https://www.example.com"; // Change this link to your desired destination
+                }
+            }, 1000); // Update countdown every second
+        }
+
+        // Automatically call the function when the page loads
+        window.onload = showResults;
+    </script>
+</body>
+</html>
